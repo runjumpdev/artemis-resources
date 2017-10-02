@@ -1,0 +1,95 @@
+<mission_data version="1.0" background_id_arme="0ccfb901-b19a-4f09-bfa6-83f0fcffdc5a" playerShipNames_arme="Artemis\Intrepid\Aegis\Horatio\Excalibur\Hera\Ceres\Diana">
+  <start id_arme="0ccfb901-b19a-4f09-bfa6-83f0fcffdc5a">
+    <set_difficulty_level value="5" />
+    <set_skybox_index index="10" />
+    <set_object_property property="nebulaIsOpaque" value="0" />
+    <set_object_property property="sensorSetting" value="1" />
+    <set_object_property property="nonPlayerSpeed" value="100" />
+    <set_object_property property="nonPlayerShield" value="100" />
+    <set_object_property property="nonPlayerWeapon" value="100" />
+    <set_object_property property="playerWeapon" value="100" />
+    <set_object_property property="playerShields" value="100" />
+    <big_message title="LexPlay Mission" subtitle1="by Randy Napier and Tim Visible" subtitle2="" />
+    <set_timer name="start_mission_timer_1" seconds="10" />
+    <set_variable name="chapter_1" value="1" />
+    <create count="150" type="nebulas" startX="70000.0" startY="0.0" startZ="70000.0" radius="4000" randomRange="10000" />
+    <create count="150" type="nebulas" startX="30000.0" startY="0.0" startZ="70000.0" radius="4000" randomRange="10000" />
+    <create count="150" type="nebulas" startX="50623.0" startY="0.0" startZ="69792.0" radius="4000" randomRange="10000" />
+    <create count="50" type="nebulas" startX="50374.0" startY="0.0" startZ="86224.0" radius="4000" randomRange="10000" />
+    <create type="player" player_slot="" x="90388.0" y="0.0" z="90242.0" angle="0" name="Player1" />
+    <create type="player" player_slot="" x="10630.0" y="0.0" z="89370.0" angle="0" name="Player2" />
+    <set_timer name="FirstEventTimer" seconds="25" />
+    <set_variable name="P1Objective" value="1.0" />
+    <set_variable name="P2Objective" value="1.0" />
+  </start>
+  <event name_arme="Objective 1 - Create Space Monster" id_arme="a12aa9cc-be23-4e00-bda1-b0de1cb2e963">
+    <if_timer_finished name="FirstEventTimer" />
+    <create type="monster" monsterType="0" x="80000.0" y="0.0" z="80000.0" angle="0" name="P1Monster" />
+    <create type="monster" monsterType="0" x="20000.0" y="0.0" z="80000.0" angle="0" name="P2Monster" />
+    <big_message title="New Objective" subtitle1="Destroy local space monster" subtitle2="" />
+  </event>
+  <event name_arme="P1 - Navigate Mine Field" id_arme="5aaf61b4-3bb1-43c0-a2b1-efabb6a6ce02">
+    <if_not_exists name="P1Monster" />
+    <if_variable name="P1Objective" comparator="EQUALS" value="1.0" />
+    <set_variable name="P1Objective" value="2.0" />
+    <create type="station" x="10000.0" y="0.0" z="10000.0" angle="0" name="DS1" />
+    <incoming_comms_text from="DS1">Congratulations on defending yourself from our enemies commander.  Please set course for DS1 in sector A5 for rearm and resupply. </incoming_comms_text>
+    <create count="40" type="mines" startX="20000.0" startY="0.0" startZ="20000.0" endX="40000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
+    <create count="40" type="mines" startX="10000.0" startY="0.0" startZ="24000.0" endX="30000.0" endY="0.0" endZ="45000.0" randomRange="2500" />
+    <create count="40" type="mines" startX="27000.0" startY="0.0" startZ="14000.0" endX="47000.0" endY="0.0" endZ="33500.0" randomRange="2500" />
+  </event>
+  <event name_arme="P2 - Navigate Mine Field" id_arme="fb7082ae-5de0-4bb5-812c-bf10d37f1949">
+    <if_not_exists name="P2Monster" />
+    <if_variable name="P2Objective" comparator="EQUALS" value="1.0" />
+    <set_variable name="P2Objective" value="2.0" />
+    <create type="station" x="90000.0" y="0.0" z="10000.0" angle="0" name="DS2" />
+    <incoming_comms_text from="DS2">Congratulations on defending yourself from our enemies commander.  Please set course for DS2 in sector A1 for rearm and resupply. </incoming_comms_text>
+    <create count="40" type="mines" startX="80000.0" startY="0.0" startZ="20000.0" endX="60000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
+    <create count="40" type="mines" startX="90243.0" startY="0.0" startZ="23704.0" endX="70243.0" endY="0.0" endZ="43704.0" randomRange="2500" />
+    <create count="40" type="mines" startX="73100.0" startY="0.0" startZ="13680.0" endX="53100.0" endY="0.0" endZ="33680.0" randomRange="2500" />
+  </event>
+  <event name_arme="P1 - Scan Anomly" id_arme="0b7a1d9c-51b4-41c2-ae11-ed2a86b6b877">
+    <if_variable name="P1Objective" comparator="EQUALS" value="2.0" />
+    <if_docked name="DS1" />
+    <set_variable name="P1Objective" value="3.0" />
+    <incoming_comms_text from="DS1">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
+    <create type="Anomaly" pickupType="0" x="70000.0" y="0.0" z="70000.0" name="P1Anomaly" />
+  </event>
+  <event name_arme="P1 - Scan Anomly" id_arme="01ff802e-f670-4c7f-b26a-be6d21f7f2d5">
+    <if_variable name="P2Objective" comparator="EQUALS" value="2.0" />
+    <if_docked name="DS2" />
+    <set_variable name="P2Objective" value="3.0" />
+    <incoming_comms_text from="DS2">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
+    <create type="Anomaly" pickupType="0" x="30000.0" y="0.0" z="70000.0" name="P2Anomaly" />
+  </event>
+  <event name_arme="P1 - Victory" id_arme="eca14bdd-53cd-4a6d-8f9a-7008cc6ebd33">
+    <if_variable name="P1Objective" comparator="EQUALS" value="4.0" />
+    <big_message title="Crew 1 Wins!" subtitle1="" subtitle2="" />
+    <set_timer name="EndGameTimer" seconds="10" />
+    <set_variable name="P1Objective" value="5.0" />
+    <set_variable name="P2Objective" value="5.0" />
+  </event>
+  <event name_arme="P2 - Victory" id_arme="d4387e42-606f-4a5c-af29-26e0eec94a26">
+    <if_variable name="P2Objective" comparator="EQUALS" value="4.0" />
+    <big_message title="Crew 1 Wins!" subtitle1="" subtitle2="" />
+    <set_timer name="EndGameTimer" seconds="10" />
+    <set_variable name="P1Objective" value="5.0" />
+    <set_variable name="P2Objective" value="5.0" />
+  </event>
+  <event name_arme="End Mission" id_arme="e5839348-77be-4982-9e20-9f24aaddc695">
+    <if_timer_finished name="EndGameTimer" />
+    <end_mission />
+  </event>
+  <event name_arme="P1 - Victory by destruction" id_arme="cb65a452-2738-4865-832d-15a7909fc637">
+    <if_not_exists name="Player2" />
+    <if_variable name="P2Objective" comparator="GREATER" value="0.0" />
+    <big_message title="Crew 1 Wins!" subtitle1="" subtitle2="" />
+    <set_timer name="EndGameTimer" seconds="10" />
+  </event>
+  <event name_arme="P2 - Victory by destruction" id_arme="bbbf6844-c0f3-414d-acd8-7c1dae53d309">
+    <if_not_exists name="Player1" />
+    <if_variable name="P1Objective" comparator="GREATER" value="0.0" />
+    <big_message title="Crew 2 Wins!" subtitle1="" subtitle2="" />
+    <set_timer name="EndGameTimer" seconds="10" />
+  </event>
+</mission_data>
