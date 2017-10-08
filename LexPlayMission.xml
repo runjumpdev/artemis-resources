@@ -34,9 +34,9 @@
     <if_not_exists name="P1Monster" />
     <if_variable name="P1Objective" comparator="EQUALS" value="1.0" />
     <set_variable name="P1Objective" value="2.0" />
-    <create type="station" x="10000.0" y="0.0" z="10000.0" angle="0" name="DS1" raceKeys="Terran friendly 1000" hullKeys="Deep Space Base base" sideValue="2" />
-    <incoming_comms_text from="DS1">Congratulations on defending yourself from our enemies commander.  Please set course for DS1 in sector A5 for rearm and resupply. </incoming_comms_text>
+    <create type="station" x="10000.0" y="0.0" z="10000.0" angle="0" name="DS1" hullID="1000" sideValue="2" />
     <create count="40" type="mines" startX="20000.0" startY="0.0" startZ="20000.0" endX="40000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
+    <incoming_comms_text from="DS1">Congratulations on defending yourself from our enemies commander.  Please set course for DS1 in sector A5 for rearm and resupply. </incoming_comms_text>
     <create count="40" type="mines" startX="10000.0" startY="0.0" startZ="24000.0" endX="30000.0" endY="0.0" endZ="45000.0" randomRange="2500" />
     <create count="40" type="mines" startX="27000.0" startY="0.0" startZ="14000.0" endX="47000.0" endY="0.0" endZ="33500.0" randomRange="2500" />
   </event>
@@ -44,9 +44,9 @@
     <if_not_exists name="P2Monster" />
     <if_variable name="P2Objective" comparator="EQUALS" value="1.0" />
     <set_variable name="P2Objective" value="2.0" />
-    <create type="station" x="90000.0" y="0.0" z="10000.0" angle="0" name="DS2" raceKeys="Terran friendly 1000" hullKeys="Deep Space Base base" sideValue="3" />
-    <incoming_comms_text from="DS2">Congratulations on defending yourself from our enemies commander.  Please set course for DS2 in sector A1 for rearm and resupply. </incoming_comms_text>
+    <create type="station" x="90000.0" y="0.0" z="10000.0" angle="0" name="DS2" hullID="1000" sideValue="3" />
     <create count="40" type="mines" startX="80000.0" startY="0.0" startZ="20000.0" endX="60000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
+    <incoming_comms_text from="DS2">Congratulations on defending yourself from our enemies commander.  Please set course for DS2 in sector A1 for rearm and resupply. </incoming_comms_text>
     <create count="40" type="mines" startX="90243.0" startY="0.0" startZ="23704.0" endX="70243.0" endY="0.0" endZ="43704.0" randomRange="2500" />
     <create count="40" type="mines" startX="73100.0" startY="0.0" startZ="13680.0" endX="53100.0" endY="0.0" endZ="33680.0" randomRange="2500" />
   </event>
