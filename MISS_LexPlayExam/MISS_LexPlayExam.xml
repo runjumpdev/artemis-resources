@@ -1,0 +1,65 @@
+<mission_data version="1.0" background_id_arme="29d37040-e398-4876-baae-76a8d65e3c7a" playerShipNames_arme="Artemis\Intrepid\Aegis\Horatio\Excalibur\Hera\Ceres\Diana">
+  <start id_arme="29d37040-e398-4876-baae-76a8d65e3c7a">
+    <create type="player" player_slot="" x="90000.0" y="0.0" z="90000.0" angle="45" name="Artemis" />
+    <set_difficulty_level value="3" />
+    <set_skybox_index index="10" />
+    <set_object_property property="nebulaIsOpaque" value="1" />
+    <set_object_property property="sensorSetting" value="1" />
+    <set_object_property property="nonPlayerSpeed" value="100" />
+    <set_object_property property="nonPlayerShield" value="100" />
+    <set_object_property property="nonPlayerWeapon" value="100" />
+    <set_object_property property="playerWeapon" value="100" />
+    <set_object_property property="playerShields" value="100" />
+    <big_message title="LexPlay Time Attack" subtitle1="by RunJumpDev" subtitle2="" />
+    <set_variable name="GameState" value="0.0" />
+    <play_sound_now filename="..\..\..\dat\Missions\MISS_LexPlayExam\message1.wav" />
+    <create type="station" x="90044.0" y="0.0" z="90043.0" angle="0" name="DS1" hullID="1002" sideValue="2" />
+    <create count="10" type="asteroids" startX="84095.0" startY="0.0" startZ="35356.0" radius="10000" randomRange="10000" />
+    <create count="20" type="asteroids" startX="43961.0" startY="0.0" startZ="52757.0" radius="18000" randomRange="10000" />
+    <set_variable name="ElapsedTime" value="0.0" />
+    <create count="70" type="nebulas" startX="64968.0" startY="0.0" startZ="50131.0" radius="20000" randomRange="10000" />
+    <create count="40" type="nebulas" startX="24793.0" startY="0.0" startZ="24529.0" radius="8000" randomRange="8000" />
+  </start>
+  <event name_arme="PlayerDocksToDS1" id_arme="3b34cf41-0705-405b-a540-65fc7172f6d9">
+    <if_docked name="DS1" />
+    <if_variable name="GameState" comparator="EQUALS" value="0.0" />
+    <set_timer name="MissionTimer" seconds="1" />
+    <set_variable name="GameState" value="1.0" />
+    <create type="Anomaly" pickupType="0" x="72320.0" y="0.0" z="72844.0" name="E1" />
+    <create type="Anomaly" pickupType="0" x="68381.0" y="0.0" z="33851.0" name="E2" />
+    <create type="Anomaly" pickupType="0" x="27156.0" y="0.0" z="51838.0" name="E3" />
+    <create type="Anomaly" pickupType="0" x="32539.0" y="0.0" z="17964.0" name="E4" />
+    <create type="Anomaly" pickupType="0" x="36740.0" y="0.0" z="89781.0" name="E5" />
+    <create type="Anomaly" pickupType="0" x="92670.0" y="0.0" z="11006.0" name="E6" />
+  </event>
+  <event name_arme="Anomalies Collected" id_arme="1188bb9b-c9ab-45d4-92f7-d74d9559ccbe">
+    <if_not_exists name="E1" />
+    <if_not_exists name="E2" />
+    <if_not_exists name="E3" />
+    <if_not_exists name="E4" />
+    <if_not_exists name="E5" />
+    <if_not_exists name="E6" />
+    <if_variable name="GameState" comparator="EQUALS" value="1.0" />
+    <set_variable name="GameState" value="2.0" />
+    <create type="enemy" x="89913.0" y="0.0" z="84792.0" angle="180" name="Drone1" hullID="120" fleetnumber="-1" />
+    <create type="enemy" x="93458.0" y="0.0" z="94113.0" angle="30" name="Drone2" hullID="120" fleetnumber="-1" />
+    <create type="enemy" x="85055.0" y="0.0" z="92800.0" angle="300" name="Drone3" hullID="120" fleetnumber="-1" />
+    <create type="enemy" x="86631.0" y="0.0" z="86761.0" angle="230" name="Drone4" hullID="120" fleetnumber="-1" />
+    <create type="enemy" x="93195.0" y="0.0" z="85711.0" angle="145" name="Drone5" hullID="120" fleetnumber="-1" />
+    <add_ai type="CHASE_STATION" value1="20000" name="Drone1" />
+    <add_ai type="CHASE_STATION" value1="20000" name="Drone2" />
+    <add_ai type="CHASE_STATION" value1="20000" name="Drone3" />
+    <add_ai type="CHASE_STATION" value1="20000" name="Drone4" />
+    <add_ai type="CHASE_STATION" value1="20000" name="Drone5" />
+    <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone1" />
+    <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone2" />
+    <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone3" />
+    <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone4" />
+    <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone5" />
+  </event>
+  <event name_arme="TimerTick" id_arme="cc13cc9d-0bd6-4db3-a9b5-11044b746ede">
+    <if_timer_finished name="MissionTimer" />
+    <set_timer name="MissionTimer" seconds="1" />
+    <set_variable name="ElapsedTime" value="ElapsedTime + 1" />
+  </event>
+</mission_data>
