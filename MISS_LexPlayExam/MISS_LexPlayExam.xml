@@ -31,7 +31,7 @@
     <create type="Anomaly" pickupType="0" x="32539.0" y="0.0" z="17964.0" name="E4" />
     <create type="Anomaly" pickupType="0" x="36740.0" y="0.0" z="89781.0" name="E5" />
     <create type="Anomaly" pickupType="0" x="92670.0" y="0.0" z="11006.0" name="E6" />
-    <create type="neutral" x="11007.0" y="0.0" z="10875.0" angle="0" name="Mercutio" hullID="1" sideValue="2" />
+    <create type="neutral" x="11007.0" y="0.0" z="10875.0" angle="0" name="Mercutio" hullID="14" sideValue="2" />
     <set_timer name="SetMercutioParams" seconds="1" />
     <set_variable name="MercutioConfigured" value="0.0" />
   </event>
@@ -59,27 +59,19 @@
     <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone3" />
     <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone4" />
     <add_ai type="CHASE_PLAYER" value1="20000" value2="10000" name="Drone5" />
+    <set_timer name="DroneSafeguard" seconds="5" />
   </event>
-  <event name_arme="ConfigureMercutio" id_arme="4f14e2d9-9410-4832-8dbb-f05f2da9b196">
-    <if_timer_finished name="SetMercutioParams" />
-    <if_variable name="MercutioConfigured" comparator="EQUALS" value="0.0" />
-    <set_object_property property="topSpeed" value="150.0" name="Mercutio" />
-    <set_variable name="MercutioConfigured" value="1.0" />
-    <add_ai type="FOLLOW_COMMS_ORDERS" name="Mercutio" />
-    <set_variable name="Dragging2" value="0.0" />
-    <set_variable name="Dragging1" value="0.0" />
-    <set_variable name="Dragging3" value="0.0" />
-    <set_variable name="Dragging4" value="0.0" />
-    <set_variable name="Dragging5" value="0.0" />
-    <set_variable name="Dragging6" value="0.0" />
-    <incoming_comms_text from="Mercutio">USS Mercutio here captain. We have a tractor beam to help tow these beacons around to you.  Just tell us where to go and we'll happily help bring them to you.</incoming_comms_text>
+  <event name_arme="EndGame" id_arme="751a04e3-5777-4e87-b037-18e47b033c5a">
+    <if_variable name="GameState" comparator="EQUALS" value="2.0" />
+    <if_not_exists name="Drone1" />
+    <if_not_exists name="Drone2" />
+    <if_not_exists name="Drone3" />
+    <if_not_exists name="Drone4" />
+    <if_not_exists name="Drone5" />
+    <if_timer_finished name="DroneSafeguard" />
+    <end_mission />
   </event>
-  <event name_arme="TimerTick" id_arme="cc13cc9d-0bd6-4db3-a9b5-11044b746ede">
-    <if_timer_finished name="MissionTimer" />
-    <set_timer name="MissionTimer" seconds="1" />
-    <set_variable name="ElapsedTime" value="ElapsedTime + 1" />
-  </event>
-  <folder_arme name_arme="MercutioDragEvents" id_arme="f7395d17-2b7f-46ad-ab45-a1382eb773af" expanded_arme="" />
+  <folder_arme name_arme="MercutioDragEvents" id_arme="f7395d17-2b7f-46ad-ab45-a1382eb773af" />
   <event name_arme="Pickup1" id_arme="0dcd79c2-2e4d-498a-918f-e5616e025424" parent_id_arme="f7395d17-2b7f-46ad-ab45-a1382eb773af">
     <if_distance name1="Mercutio" name2="E1" comparator="LESS_EQUAL" value="2500.0" />
     <if_variable name="Dragging1" comparator="LESS" value="2.0" />
@@ -151,5 +143,25 @@
     <if_distance name1="Artemis" name2="Mercutio" comparator="LESS_EQUAL" value="5000.0" />
     <set_variable name="Dragging6" value="2.0" />
     <incoming_comms_text from="Mercutio">Disengaging tractor beam from the energy beacon.  She's all yours Artemis.</incoming_comms_text>
+  </event>
+  <event name_arme="ConfigureMercutio" id_arme="4f14e2d9-9410-4832-8dbb-f05f2da9b196">
+    <if_timer_finished name="SetMercutioParams" />
+    <if_variable name="MercutioConfigured" comparator="EQUALS" value="0.0" />
+    <clear_ai name="Mercutio" />
+    <add_ai type="FOLLOW_COMMS_ORDERS" name="Mercutio" />
+    <set_variable name="MercutioConfigured" value="1.0" />
+    <set_variable name="Dragging2" value="0.0" />
+    <set_variable name="Dragging1" value="0.0" />
+    <set_variable name="Dragging3" value="0.0" />
+    <set_variable name="Dragging4" value="0.0" />
+    <set_variable name="Dragging5" value="0.0" />
+    <set_variable name="Dragging6" value="0.0" />
+    <incoming_comms_text from="Mercutio">USS Mercutio here captain. We have a tractor beam to help tow these beacons around to you.  Just tell us where to go and we'll happily help bring them to you.</incoming_comms_text>
+  </event>
+  <event name_arme="TimerTick" id_arme="cc13cc9d-0bd6-4db3-a9b5-11044b746ede">
+    <if_timer_finished name="MissionTimer" />
+    <set_timer name="MissionTimer" seconds="1" />
+    <set_variable name="ElapsedTime" value="ElapsedTime + 1" />
+    <log text="1" />
   </event>
 </mission_data>
