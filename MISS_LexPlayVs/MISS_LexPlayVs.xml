@@ -17,6 +17,8 @@
     <set_timer name="FirstEventTimer" seconds="25" />
     <set_variable name="P1Objective" value="0.5" />
     <set_variable name="P2Objective" value="0.5" />
+    <set_variable name="P1SideSet" value="0.0" />
+    <set_variable name="P2SideSet" value="0.0" />
   </start>
   <event name_arme="Objective 1 - Create Space Monster" id_arme="a12aa9cc-be23-4e00-bda1-b0de1cb2e963">
     <if_timer_finished name="FirstEventTimer" />
@@ -34,7 +36,7 @@
     <set_variable name="P1Objective" value="2.0" />
     <create type="station" x="10000.0" y="0.0" z="10000.0" angle="0" name="DS1" hullID="1000" sideValue="2" />
     <create count="40" type="mines" startX="20000.0" startY="0.0" startZ="20000.0" endX="40000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
-    <incoming_comms_text from="DS1">Congratulations on defending yourself from our enemies commander.  Please set course for DS1 in sector A5 for rearm and resupply. </incoming_comms_text>
+    <incoming_comms_text from="DS1" side="2">Congratulations on defending yourself from our enemies commander.  Please set course for DS1 in sector A5 for rearm and resupply. </incoming_comms_text>
     <create count="40" type="mines" startX="10000.0" startY="0.0" startZ="24000.0" endX="30000.0" endY="0.0" endZ="45000.0" randomRange="2500" />
     <create count="40" type="mines" startX="27000.0" startY="0.0" startZ="14000.0" endX="47000.0" endY="0.0" endZ="33500.0" randomRange="2500" />
   </event>
@@ -44,7 +46,7 @@
     <set_variable name="P2Objective" value="2.0" />
     <create type="station" x="90000.0" y="0.0" z="10000.0" angle="0" name="DS2" hullID="1000" sideValue="3" />
     <create count="40" type="mines" startX="80000.0" startY="0.0" startZ="20000.0" endX="60000.0" endY="0.0" endZ="40000.0" randomRange="2500" />
-    <incoming_comms_text from="DS2">Congratulations on defending yourself from our enemies commander.  Please set course for DS2 in sector A1 for rearm and resupply. </incoming_comms_text>
+    <incoming_comms_text from="DS2" side="3">Congratulations on defending yourself from our enemies commander.  Please set course for DS2 in sector A1 for rearm and resupply. </incoming_comms_text>
     <create count="40" type="mines" startX="90243.0" startY="0.0" startZ="23704.0" endX="70243.0" endY="0.0" endZ="43704.0" randomRange="2500" />
     <create count="40" type="mines" startX="73100.0" startY="0.0" startZ="13680.0" endX="53100.0" endY="0.0" endZ="33680.0" randomRange="2500" />
   </event>
@@ -53,7 +55,7 @@
     <if_docked name="DS1" />
     <if_distance name1="Artemis" name2="DS1" comparator="LESS_EQUAL" value="2000.0" />
     <set_variable name="P1Objective" value="3.0" />
-    <incoming_comms_text from="DS1">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
+    <incoming_comms_text from="DS1" side="2">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
     <create type="Anomaly" pickupType="0" x="70000.0" y="0.0" z="70000.0" name="P1Anomaly" />
   </event>
   <event name_arme="P2 - Scan Anomly" id_arme="01ff802e-f670-4c7f-b26a-be6d21f7f2d5">
@@ -61,7 +63,7 @@
     <if_docked name="DS2" />
     <if_distance name1="Intrepid" name2="DS2" comparator="LESS_EQUAL" value="2000.0" />
     <set_variable name="P2Objective" value="3.0" />
-    <incoming_comms_text from="DS2">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
+    <incoming_comms_text from="DS2" side="3">Welcome home.  Unforunately we have to send you right back out into the black.  We've received word that one of our science probes in the Achtung Nebulae found some kind of anomaly.  We need you to go give it a scan.</incoming_comms_text>
     <create type="Anomaly" pickupType="0" x="30000.0" y="0.0" z="70000.0" name="P2Anomaly" />
   </event>
   <event name_arme="P1 - Victory" id_arme="eca14bdd-53cd-4a6d-8f9a-7008cc6ebd33">
@@ -111,6 +113,7 @@
   <event name_arme="Position P1" id_arme="1bfe3de8-cf4d-4c78-8f98-357187a72208">
     <if_variable name="P1Objective" comparator="EQUALS" value="0.5" />
     <if_exists name="Artemis" />
+    <set_side_value value="2" name="Artemis" />
     <set_object_property property="positionX" value="90000.0" name="Artemis" />
     <set_object_property property="positionZ" value="90000.0" name="Artemis" />
     <set_variable name="P1Objective" value="0.75" />
@@ -118,8 +121,11 @@
   <event name_arme="Position P2" id_arme="565c7bdf-1bd4-495b-8d13-73db599d1be6">
     <if_variable name="P2Objective" comparator="EQUALS" value="0.5" />
     <if_exists name="Intrepid" />
+    <set_side_value value="3" name="Intrepid" />
     <set_object_property property="positionX" value="10000.0" name="Intrepid" />
     <set_object_property property="positionZ" value="90000.0" name="Intrepid" />
     <set_variable name="P2Objective" value="0.75" />
   </event>
+ 
+ 
 </mission_data>
